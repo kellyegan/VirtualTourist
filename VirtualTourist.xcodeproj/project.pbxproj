@@ -15,6 +15,7 @@
 		FB41FC2920371F41004FDBBD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB41FC2720371F41004FDBBD /* LaunchScreen.storyboard */; };
 		FB41FC3420371F41004FDBBD /* VirtualTouristTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB41FC3320371F41004FDBBD /* VirtualTouristTests.swift */; };
 		FB41FC3F20371F41004FDBBD /* VirtualTouristUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB41FC3E20371F41004FDBBD /* VirtualTouristUITests.swift */; };
+		FB41FC50203720FA004FDBBD /* VirtualTourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FB41FC4E203720FA004FDBBD /* VirtualTourist.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		FB41FC3A20371F41004FDBBD /* VirtualTouristUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VirtualTouristUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB41FC3E20371F41004FDBBD /* VirtualTouristUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualTouristUITests.swift; sourceTree = "<group>"; };
 		FB41FC4020371F41004FDBBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FB41FC4F203720FA004FDBBD /* VirtualTourist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VirtualTourist.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 		FB41FC4C20371FA2004FDBBD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FB41FC4E203720FA004FDBBD /* VirtualTourist.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB41FC50203720FA004FDBBD /* VirtualTourist.xcdatamodeld in Sources */,
 				FB41FC1E20371F41004FDBBD /* ViewController.swift in Sources */,
 				FB41FC1C20371F41004FDBBD /* AppDelegate.swift in Sources */,
 				FB41FC2420371F41004FDBBD /* VirtualTourist.xcdatamodeld in Sources */,
@@ -586,6 +590,16 @@
 				FB41FC2320371F41004FDBBD /* VirtualTourist.xcdatamodel */,
 			);
 			currentVersion = FB41FC2320371F41004FDBBD /* VirtualTourist.xcdatamodel */;
+			path = VirtualTourist.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		FB41FC4E203720FA004FDBBD /* VirtualTourist.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FB41FC4F203720FA004FDBBD /* VirtualTourist.xcdatamodel */,
+			);
+			currentVersion = FB41FC4F203720FA004FDBBD /* VirtualTourist.xcdatamodel */;
 			path = VirtualTourist.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
