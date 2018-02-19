@@ -14,11 +14,16 @@ class MapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     
+    let regionRadius: CLLocationDistance = 1000
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let initialLocation = CLLocation(latitude: 21.282778, longitude: -157.82944)
+        //Initial location Providence, RI
+        let initialLocation = CLLocationCoordinate2D(latitude: 41.8240, longitude: -71.4128)
+        
+        centerMapOnLocation(location: initialLocation)
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,5 +31,11 @@ class MapViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    func centerMapOnLocation(location: CLLocationCoordinate2D) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location, regionRadius, regionRadius)
+        mapView.setRegion(coordinateRegion, animated: true)
+    }
+    
+    
 }
 
