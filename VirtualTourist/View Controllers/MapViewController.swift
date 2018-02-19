@@ -24,6 +24,9 @@ class MapViewController: UIViewController {
         let initialLocation = CLLocationCoordinate2D(latitude: 41.8240, longitude: -71.4128)
         
         centerMapOnLocation(location: initialLocation)
+        
+        let pin = PinTest(coordinate: initialLocation)
+        mapView.addAnnotation(pin)
     }
 
     override func didReceiveMemoryWarning() {

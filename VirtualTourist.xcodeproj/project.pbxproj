@@ -17,6 +17,7 @@
 		FB41FC3F20371F41004FDBBD /* VirtualTouristUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB41FC3E20371F41004FDBBD /* VirtualTouristUITests.swift */; };
 		FB41FC5220372516004FDBBD /* VirtualTourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FB41FC4E203720FA004FDBBD /* VirtualTourist.xcdatamodeld */; };
 		FB41FC5420372658004FDBBD /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB41FC5320372658004FDBBD /* DataController.swift */; };
+		FBDEA848203B1EC800C43CAF /* PinTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDEA847203B1EC800C43CAF /* PinTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		FB41FC4020371F41004FDBBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB41FC4F203720FA004FDBBD /* VirtualTourist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VirtualTourist.xcdatamodel; sourceTree = "<group>"; };
 		FB41FC5320372658004FDBBD /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		FBDEA847203B1EC800C43CAF /* PinTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 			children = (
 				FB41FC4E203720FA004FDBBD /* VirtualTourist.xcdatamodeld */,
 				FB41FC5320372658004FDBBD /* DataController.swift */,
+				FBDEA847203B1EC800C43CAF /* PinTest.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				FB41FC1E20371F41004FDBBD /* MapViewController.swift in Sources */,
 				FB41FC1C20371F41004FDBBD /* AppDelegate.swift in Sources */,
 				FB41FC2420371F41004FDBBD /* VirtualTourist.xcdatamodeld in Sources */,
+				FBDEA848203B1EC800C43CAF /* PinTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
