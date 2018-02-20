@@ -10,7 +10,6 @@
 		FB41FC1C20371F41004FDBBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB41FC1B20371F41004FDBBD /* AppDelegate.swift */; };
 		FB41FC1E20371F41004FDBBD /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB41FC1D20371F41004FDBBD /* MapViewController.swift */; };
 		FB41FC2120371F41004FDBBD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB41FC1F20371F41004FDBBD /* Main.storyboard */; };
-		FB41FC2420371F41004FDBBD /* VirtualTourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FB41FC2220371F41004FDBBD /* VirtualTourist.xcdatamodeld */; };
 		FB41FC2620371F41004FDBBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB41FC2520371F41004FDBBD /* Assets.xcassets */; };
 		FB41FC2920371F41004FDBBD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB41FC2720371F41004FDBBD /* LaunchScreen.storyboard */; };
 		FB41FC3420371F41004FDBBD /* VirtualTouristTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB41FC3320371F41004FDBBD /* VirtualTouristTests.swift */; };
@@ -55,6 +54,7 @@
 		FB41FC4F203720FA004FDBBD /* VirtualTourist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VirtualTourist.xcdatamodel; sourceTree = "<group>"; };
 		FB41FC5320372658004FDBBD /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		FBDEA847203B1EC800C43CAF /* PinTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinTest.swift; sourceTree = "<group>"; };
+		FBE9DEB6203C7F4F00498C2F /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Test.swift; path = ../../../../../../../../../Desktop/Test.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				FB41FC1D20371F41004FDBBD /* MapViewController.swift */,
+				FBE9DEB6203C7F4F00498C2F /* Test.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -291,7 +292,6 @@
 				FB41FC5220372516004FDBBD /* VirtualTourist.xcdatamodeld in Sources */,
 				FB41FC1E20371F41004FDBBD /* MapViewController.swift in Sources */,
 				FB41FC1C20371F41004FDBBD /* AppDelegate.swift in Sources */,
-				FB41FC2420371F41004FDBBD /* VirtualTourist.xcdatamodeld in Sources */,
 				FBDEA848203B1EC800C43CAF /* PinTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

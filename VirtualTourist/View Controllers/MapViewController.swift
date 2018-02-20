@@ -18,16 +18,19 @@ class MapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
         mapView.delegate = self
         
         //Initial location Providence, RI
         let initialLocation = CLLocationCoordinate2D(latitude: 41.8240, longitude: -71.4128)
-        
         centerMapOnLocation(location: initialLocation)
-        
         let pin = PinTest(coordinate: initialLocation)
         mapView.addAnnotation(pin)
+        
+        //This is more Cocoa voodoo
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.mapLongPress(_:)))
+        longPress.minimumPressDuration = 1.5
+        mapView.addGestureRecognizer(longPress)
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,6 +41,21 @@ class MapViewController: UIViewController {
     func centerMapOnLocation(location: CLLocationCoordinate2D) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location, regionRadius, regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
+    }
+    
+    @objc func mapLongPress(_ recognizer: UIGestureRecognizer) {
+        let touchedAt = recognizer.location(in: self.mapView)
+        
+        switch recognizer.state {
+        case .began:
+            print("It has begun. \(touchedAt)")
+            break
+        case .ended:
+            print("It is done. \(touchedAt)")
+            break
+        default:
+            break
+        }
     }
     
 }
