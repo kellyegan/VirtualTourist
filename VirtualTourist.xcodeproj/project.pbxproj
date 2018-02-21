@@ -54,7 +54,6 @@
 		FB41FC4F203720FA004FDBBD /* VirtualTourist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VirtualTourist.xcdatamodel; sourceTree = "<group>"; };
 		FB41FC5320372658004FDBBD /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		FBDEA847203B1EC800C43CAF /* PinTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinTest.swift; sourceTree = "<group>"; };
-		FBE9DEB6203C7F4F00498C2F /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Test.swift; path = ../../../../../../../../../Desktop/Test.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,7 +148,6 @@
 			isa = PBXGroup;
 			children = (
 				FB41FC1D20371F41004FDBBD /* MapViewController.swift */,
-				FBE9DEB6203C7F4F00498C2F /* Test.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";

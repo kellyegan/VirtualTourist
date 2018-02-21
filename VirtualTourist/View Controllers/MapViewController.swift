@@ -15,6 +15,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     
     let regionRadius: CLLocationDistance = 1000
+    var activePin: PinTest? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +30,7 @@ class MapViewController: UIViewController {
         
         //This is more Cocoa voodoo
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.mapLongPress(_:)))
-        longPress.minimumPressDuration = 1.5
+        longPress.minimumPressDuration = 1.0
         mapView.addGestureRecognizer(longPress)
     }
 
@@ -45,19 +46,21 @@ class MapViewController: UIViewController {
     
     @objc func mapLongPress(_ recognizer: UIGestureRecognizer) {
         let touchedAt = recognizer.location(in: self.mapView)
+        let coordinate = mapView.convert(touchedAt, toCoordinateFrom: mapView)
         
         switch recognizer.state {
         case .began:
-            print("It has begun. \(touchedAt)")
+            //Long press has begun
+            activePin = PinTest(coordinate: coordinate)
+            mapView.addAnnotation(activePin!)
             break
         case .ended:
-            print("It is done. \(touchedAt)")
+            //Long press has ended
             break
         default:
             break
         }
     }
-    
 }
 
 extension MapViewController: MKMapViewDelegate {
