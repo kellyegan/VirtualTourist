@@ -16,6 +16,7 @@
 		FB41FC3F20371F41004FDBBD /* VirtualTouristUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB41FC3E20371F41004FDBBD /* VirtualTouristUITests.swift */; };
 		FB41FC5220372516004FDBBD /* VirtualTourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FB41FC4E203720FA004FDBBD /* VirtualTourist.xcdatamodeld */; };
 		FB41FC5420372658004FDBBD /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB41FC5320372658004FDBBD /* DataController.swift */; };
+		FBD1931D203DED0E00B09D91 /* Pin+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1931C203DED0D00B09D91 /* Pin+Extensions.swift */; };
 		FBDEA848203B1EC800C43CAF /* PinTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDEA847203B1EC800C43CAF /* PinTest.swift */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,7 @@
 		FB41FC4020371F41004FDBBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB41FC4F203720FA004FDBBD /* VirtualTourist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VirtualTourist.xcdatamodel; sourceTree = "<group>"; };
 		FB41FC5320372658004FDBBD /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		FBD1931C203DED0D00B09D91 /* Pin+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pin+Extensions.swift"; sourceTree = "<group>"; };
 		FBDEA847203B1EC800C43CAF /* PinTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,9 +106,9 @@
 		FB41FC1A20371F41004FDBBD /* VirtualTourist */ = {
 			isa = PBXGroup;
 			children = (
+				FB41FC1B20371F41004FDBBD /* AppDelegate.swift */,
 				FB41FC4D20371FB0004FDBBD /* View Controllers */,
 				FB41FC4C20371FA2004FDBBD /* Model */,
-				FB41FC1B20371F41004FDBBD /* AppDelegate.swift */,
 				FB41FC1F20371F41004FDBBD /* Main.storyboard */,
 				FB41FC2520371F41004FDBBD /* Assets.xcassets */,
 				FB41FC2720371F41004FDBBD /* LaunchScreen.storyboard */,
@@ -137,6 +139,7 @@
 		FB41FC4C20371FA2004FDBBD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FBD1931B203DECDA00B09D91 /* Managed Object Extensions */,
 				FB41FC4E203720FA004FDBBD /* VirtualTourist.xcdatamodeld */,
 				FB41FC5320372658004FDBBD /* DataController.swift */,
 				FBDEA847203B1EC800C43CAF /* PinTest.swift */,
@@ -150,6 +153,14 @@
 				FB41FC1D20371F41004FDBBD /* MapViewController.swift */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		FBD1931B203DECDA00B09D91 /* Managed Object Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FBD1931C203DED0D00B09D91 /* Pin+Extensions.swift */,
+			);
+			path = "Managed Object Extensions";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,6 +302,7 @@
 				FB41FC1E20371F41004FDBBD /* MapViewController.swift in Sources */,
 				FB41FC1C20371F41004FDBBD /* AppDelegate.swift in Sources */,
 				FBDEA848203B1EC800C43CAF /* PinTest.swift in Sources */,
+				FBD1931D203DED0E00B09D91 /* Pin+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

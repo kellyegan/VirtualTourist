@@ -16,6 +16,8 @@ class MapViewController: UIViewController {
     
     let regionRadius: CLLocationDistance = 1000
     var activePin: PinTest? = nil
+    
+    var dataController:DataController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +27,6 @@ class MapViewController: UIViewController {
         //Initial location Providence, RI
         let initialLocation = CLLocationCoordinate2D(latitude: 41.8240, longitude: -71.4128)
         centerMapOnLocation(location: initialLocation)
-        let pin = PinTest(coordinate: initialLocation)
-        mapView.addAnnotation(pin)
         
         //This is more Cocoa voodoo
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.mapLongPress(_:)))
