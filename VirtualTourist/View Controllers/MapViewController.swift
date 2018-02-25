@@ -115,11 +115,11 @@ extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let pin = view.annotation as? Pin {
-            //TODO:  Segue to photos view
+            //Create new PhotosViewController
             let storyboard = UIStoryboard (name: "Main", bundle: nil)
             let photosViewController = storyboard.instantiateViewController(withIdentifier: "PhotosViewController") as! PhotosViewController
             
-            // Communicate the match
+            // Add pin to new PhotosViewController and push on to Navigation stack
             photosViewController.pin = pin
             self.navigationController?.pushViewController(photosViewController, animated: true)            
         }
