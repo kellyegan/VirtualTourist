@@ -14,8 +14,6 @@ class MapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     
-    let regionRadius: CLLocationDistance = 1000
-    
     var dataController:DataController!
     var fetchedResultsController:NSFetchedResultsController<Pin>!
 
@@ -41,9 +39,7 @@ class MapViewController: UIViewController {
         mapView.delegate = self
         
         //Initial location Providence, RI
-        let initialLocation = CLLocationCoordinate2D(latitude: 41.8240, longitude: -71.4128)
-        centerMapOnLocation(location: initialLocation)
-        
+        MapTools.center(map: mapView, latitude: 41.8240, longitude: -71.4128, radius: 1000)
         setupFetchedResultsController()
         
         if let pins = fetchedResultsController.fetchedObjects {
@@ -64,11 +60,6 @@ class MapViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         fetchedResultsController = nil
-    }
-    
-    func centerMapOnLocation(location: CLLocationCoordinate2D) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location, regionRadius, regionRadius)
-        mapView.setRegion(coordinateRegion, animated: true)
     }
     
     @objc func mapLongPress(_ recognizer: UIGestureRecognizer) {
