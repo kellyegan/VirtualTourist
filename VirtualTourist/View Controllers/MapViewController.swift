@@ -52,8 +52,6 @@ class MapViewController: UIViewController {
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.mapLongPress(_:)))
         longPress.minimumPressDuration = 1.0
         mapView.addGestureRecognizer(longPress)
-        
-        
     }
 
     override func didReceiveMemoryWarning() {
