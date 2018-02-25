@@ -10,12 +10,11 @@ import UIKit
 import CoreData
 import MapKit
 
-class MapViewController: UIViewController, NSFetchedResultsControllerDelegate {
+class MapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     
     let regionRadius: CLLocationDistance = 1000
-    var activePin: PinTest? = nil
     
     var dataController:DataController!
     var fetchedResultsController:NSFetchedResultsController<Pin>!
@@ -45,10 +44,16 @@ class MapViewController: UIViewController, NSFetchedResultsControllerDelegate {
         
         setupFetchedResultsController()
         
+        if let pins = fetchedResultsController.fetchedObjects {
+            mapView.addAnnotations(pins)
+        }
+        
         //Setup a long press gesture > 1 second on mapView to run mapLongPress
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.mapLongPress(_:)))
         longPress.minimumPressDuration = 1.0
         mapView.addGestureRecognizer(longPress)
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,9 +78,10 @@ class MapViewController: UIViewController, NSFetchedResultsControllerDelegate {
         switch recognizer.state {
         case .began:
             //Long press has begun
-            activePin = PinTest(coordinate: coordinate)
-            mapView.addAnnotation(activePin!)
-            break
+            let activePin = Pin(context: dataController.viewContext)
+            activePin.latitude = coordinate.latitude
+            activePin.longitude = coordinate.longitude
+            try? dataController.viewContext.save()
         case .ended:
             //Long press has ended
             break
@@ -85,3 +91,22 @@ class MapViewController: UIViewController, NSFetchedResultsControllerDelegate {
     }
 }
 
+extension MapViewController: NSFetchedResultsControllerDelegate {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        guard let pin = anObject as? Pin else {
+            preconditionFailure("Object is not of type Pin")
+        }
+        
+        switch type {
+        case .insert:
+            mapView.addAnnotation(pin)
+        case .delete:
+            mapView.removeAnnotation(pin)
+        case .update:
+            mapView.removeAnnotation(pin)
+            mapView.addAnnotation(pin)
+        case .move:
+            fatalError()
+        }
+    }
+}
