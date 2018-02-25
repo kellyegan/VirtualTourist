@@ -31,7 +31,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="9y0-Fj-0yV"/>
+                    <navigationItem key="navigationItem" title="Virtual Tourist" id="9y0-Fj-0yV"/>
                     <connections>
                         <outlet property="mapView" destination="0eG-4a-9kZ" id="UWl-hM-oNr"/>
                     </connections>

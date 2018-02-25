@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -18,7 +18,24 @@ class MapViewController: UIViewController {
     var activePin: PinTest? = nil
     
     var dataController:DataController!
+    var fetchedResultsController:NSFetchedResultsController<Pin>!
 
+    fileprivate func setupFetchedResultsController() {
+        let fetchRequest:NSFetchRequest<Pin> = Pin.fetchRequest()
+        let latitudeDescriptor = NSSortDescriptor(key: "latitude", ascending: true)
+        let longitudeDescriptor = NSSortDescriptor(key: "longitude", ascending: true)
+        fetchRequest.sortDescriptors = [latitudeDescriptor, longitudeDescriptor]
+        
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController.delegate = self
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            fatalError("The fetch could not be performed: \(error.localizedDescription)")
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,7 +45,9 @@ class MapViewController: UIViewController {
         let initialLocation = CLLocationCoordinate2D(latitude: 41.8240, longitude: -71.4128)
         centerMapOnLocation(location: initialLocation)
         
-        //This is more Cocoa voodoo
+        setupFetchedResultsController()
+        
+        //Setup a long press gesture > 1 second on mapView to run mapLongPress
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.mapLongPress(_:)))
         longPress.minimumPressDuration = 1.0
         mapView.addGestureRecognizer(longPress)
@@ -39,6 +58,11 @@ class MapViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        fetchedResultsController = nil
+    }
+    
     func centerMapOnLocation(location: CLLocationCoordinate2D) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location, regionRadius, regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
