@@ -18,6 +18,9 @@
 		FB41FC5420372658004FDBBD /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB41FC5320372658004FDBBD /* DataController.swift */; };
 		FBA044942043025500180143 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA044932043025500180143 /* PhotosViewController.swift */; };
 		FBA044962043463600180143 /* MapTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA044952043463600180143 /* MapTools.swift */; };
+		FBA04499204360F700180143 /* FlickrConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA04498204360F700180143 /* FlickrConstants.swift */; };
+		FBA0449B2043618C00180143 /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA0449A2043618C00180143 /* FlickrClient.swift */; };
+		FBA0449D204361DA00180143 /* FlickrApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA0449C204361DA00180143 /* FlickrApp.swift */; };
 		FBD1931D203DED0E00B09D91 /* Pin+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1931C203DED0D00B09D91 /* Pin+Extensions.swift */; };
 		FBDEA848203B1EC800C43CAF /* PinTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDEA847203B1EC800C43CAF /* PinTest.swift */; };
 /* End PBXBuildFile section */
@@ -58,6 +61,9 @@
 		FB41FC5320372658004FDBBD /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		FBA044932043025500180143 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		FBA044952043463600180143 /* MapTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTools.swift; sourceTree = "<group>"; };
+		FBA04498204360F700180143 /* FlickrConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrConstants.swift; sourceTree = "<group>"; };
+		FBA0449A2043618C00180143 /* FlickrClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
+		FBA0449C204361DA00180143 /* FlickrApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrApp.swift; sourceTree = "<group>"; };
 		FBD1931C203DED0D00B09D91 /* Pin+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pin+Extensions.swift"; sourceTree = "<group>"; };
 		FBDEA847203B1EC800C43CAF /* PinTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -143,6 +149,7 @@
 		FB41FC4C20371FA2004FDBBD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FBA04497204360D700180143 /* Flickr */,
 				FBD1931B203DECDA00B09D91 /* Managed Object Extensions */,
 				FB41FC4E203720FA004FDBBD /* VirtualTourist.xcdatamodeld */,
 				FB41FC5320372658004FDBBD /* DataController.swift */,
@@ -159,6 +166,16 @@
 				FBA044952043463600180143 /* MapTools.swift */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		FBA04497204360D700180143 /* Flickr */ = {
+			isa = PBXGroup;
+			children = (
+				FBA04498204360F700180143 /* FlickrConstants.swift */,
+				FBA0449A2043618C00180143 /* FlickrClient.swift */,
+				FBA0449C204361DA00180143 /* FlickrApp.swift */,
+			);
+			path = Flickr;
 			sourceTree = "<group>";
 		};
 		FBD1931B203DECDA00B09D91 /* Managed Object Extensions */ = {
@@ -304,11 +321,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBA044962043463600180143 /* MapTools.swift in Sources */,
+				FBA0449B2043618C00180143 /* FlickrClient.swift in Sources */,
+				FBA04499204360F700180143 /* FlickrConstants.swift in Sources */,
 				FB41FC5420372658004FDBBD /* DataController.swift in Sources */,
 				FB41FC5220372516004FDBBD /* VirtualTourist.xcdatamodeld in Sources */,
 				FB41FC1E20371F41004FDBBD /* MapViewController.swift in Sources */,
 				FB41FC1C20371F41004FDBBD /* AppDelegate.swift in Sources */,
 				FBA044942043025500180143 /* PhotosViewController.swift in Sources */,
+				FBA0449D204361DA00180143 /* FlickrApp.swift in Sources */,
 				FBDEA848203B1EC800C43CAF /* PinTest.swift in Sources */,
 				FBD1931D203DED0E00B09D91 /* Pin+Extensions.swift in Sources */,
 			);
