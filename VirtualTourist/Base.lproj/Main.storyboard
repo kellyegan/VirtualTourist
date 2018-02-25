@@ -34,7 +34,7 @@
                     <navigationItem key="navigationItem" title="Virtual Tourist" id="9y0-Fj-0yV"/>
                     <connections>
                         <outlet property="mapView" destination="0eG-4a-9kZ" id="UWl-hM-oNr"/>
-                        <segue destination="cVE-91-bVK" kind="show" identifier="ShowPhotos" id="3ds-Nl-7oQ"/>
+                        <segue destination="cVE-91-bVK" kind="show" identifier="showPhotos" id="3ds-Nl-7oQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -44,7 +44,7 @@
         <!--Photos View Controller-->
         <scene sceneID="ETB-my-sFg">
             <objects>
-                <viewController id="cVE-91-bVK" customClass="PhotosViewController" customModule="VirtualTourist" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PhotosViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cVE-91-bVK" customClass="PhotosViewController" customModule="VirtualTourist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fQH-6K-Wx8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

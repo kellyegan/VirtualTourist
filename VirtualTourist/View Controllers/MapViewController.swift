@@ -38,6 +38,8 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mapView.delegate = self
+        
         //Initial location Providence, RI
         let initialLocation = CLLocationCoordinate2D(latitude: 41.8240, longitude: -71.4128)
         centerMapOnLocation(location: initialLocation)
@@ -105,6 +107,21 @@ extension MapViewController: NSFetchedResultsControllerDelegate {
             mapView.addAnnotation(pin)
         case .move:
             fatalError()
+        }
+    }
+}
+
+extension MapViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let pin = view.annotation as? Pin {
+            //TODO:  Segue to photos view
+            let storyboard = UIStoryboard (name: "Main", bundle: nil)
+            let photosViewController = storyboard.instantiateViewController(withIdentifier: "PhotosViewController") as! PhotosViewController
+            
+            // Communicate the match
+            photosViewController.pin = pin
+            self.navigationController?.pushViewController(photosViewController, animated: true)            
         }
     }
 }

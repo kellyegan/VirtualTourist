@@ -16,9 +16,11 @@ class PhotosViewController: UIViewController {
     @IBOutlet weak var photosCollectionView: UICollectionView!
     
     var dataController: DataController!
+    var pin: Pin!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("\(pin.latitude), \(pin.longitude)")
         
     }
     
