@@ -38,20 +38,56 @@ class PhotosViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Center map on pin and add location
         MapTools.center(map: topMapView, latitude: pin.latitude, longitude: pin.longitude, radius: 500)
         topMapView.addAnnotation(pin)
+        
+        photosCollectionView.collectionViewLayout = createPhotoLayout(columns: 3, columnMargin: 5, rowMargin: 7)
         
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
     }
-}
-
-extension PhotosViewController: UICollectionViewDelegate {
     
+    fileprivate func createPhotoLayout(columns: CGFloat, columnMargin: CGFloat, rowMargin: CGFloat) -> UICollectionViewFlowLayout {
+        
+        let photoCellSize = UIScreen.main.bounds.width / columns - columnMargin
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsetsMake(10, 0, 10, 0)
+        layout.itemSize = CGSize(width: photoCellSize, height: photoCellSize)
+        layout.minimumInteritemSpacing = columnMargin
+        layout.minimumLineSpacing = rowMargin
+        return layout
+    }
 }
 
+// -------------------------------------------------------------------------
+// MARK: - Collection view data source
+extension PhotosViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return fetchedResultsController.sections?.count ?? 1
+        return 21
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        //let photo = fetchedResultsController.object(at: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCell
+        // TODO: - insert image into to PhotoCell
+        cell.imageView.image = UIImage(named: "placeholder.png")
+        return cell
+    }
+}
+
+// -------------------------------------------------------------------------
+// MARK: - Collection view delegate
+extension PhotosViewController: UICollectionViewDelegate {
+
+}
+
+// -------------------------------------------------------------------------
+// MARK: - Fetched Results Controller
 extension PhotosViewController: NSFetchedResultsControllerDelegate {
     
 }

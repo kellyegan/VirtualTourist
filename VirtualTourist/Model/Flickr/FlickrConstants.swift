@@ -28,6 +28,7 @@ extension FlickrClient {
         static let SearchRadius = "radius"
         static let IsCommons = "is_commons"
         static let MinimumDateTaken = "min_taken_date"
+        static let ResultsPerPage = "per_page"
     }
     
     // MARK: Flickr Parameter Values
