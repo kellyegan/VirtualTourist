@@ -27,14 +27,101 @@ class FlickrClient: NSObject {
             ParameterKeys.Latitude: latitude,
             ParameterKeys.Longitude: longitude,
             ParameterKeys.SearchRadius: radius,
-            ParameterKeys.MinimumDateTaken: aYearAgo.timeIntervalSince1970
+            ParameterKeys.MinimumDateTaken: aYearAgo.timeIntervalSince1970,
+            ParameterKeys.Extras: ParameterValues.MediumURL
             ] as [String : Any]
         
-        if let url = constructURL(parameters: methodParameters) {
-            print(url)
-        } else {
-            print("Something's borked.")
+        guard let url = constructURL(parameters: methodParameters) else {
+            print("Could not construct URL")
+            return
         }
+        
+        let task = taskWithURL(url: url) {(data, error) -> Void in
+            guard error == nil, let data = data else {
+                print(error!.localizedDescription)
+                return
+            }
+            
+            guard let photosDictionary = data[ResponseKeys.Photos] as? [String:AnyObject], let photoArray = photosDictionary[ResponseKeys.Photo] as? [[String:AnyObject]] else {
+                print("Cannot find keys '\(ResponseKeys.Photos)' and '\(ResponseKeys.Photo)' in \(data)")
+                return
+            }
+            
+            //Pick random photo in the first page of results. Perhaps update to look through all photos
+            let randomPhotoIndex = Int(arc4random_uniform(UInt32(photoArray.count)))
+            let photoDetails = photoArray[randomPhotoIndex] as [String:AnyObject]
+            
+            //Check if there is a url for medium resolution image. Perhaps better as a loop that looks for other photos if fail?
+            guard let imageURLString = photoDetails[ResponseKeys.MediumURL] as? String else {
+                print("Cannot find key '\(ResponseKeys.MediumURL)' in \(photoDetails)")
+                return
+            }
+            
+            print(imageURLString)
+        }
+        
+        task.resume()
+    }
+    
+    private func taskWithURL( url: URL, completionHandler: @escaping (_ results: [String:AnyObject]?, _ error: Error?) -> Void ) -> URLSessionTask {
+        
+        enum RequestError: Error, LocalizedError {
+            case noStatusCode(url: String)
+            case statusCodeNotOK(status: String)
+            case noData(url: String)
+            case couldNotParseJSON(data: String)
+            
+            var errorDescription: String? {
+                switch self {
+                case .noStatusCode(let url): return "No status code returned for '\(url)'"
+                case .statusCodeNotOK(let status): return status
+                case .noData(let url): return "No data was returned for '\(url)'"
+                case .couldNotParseJSON(let data): return "Could not parse the to JSON: \(data)"
+                }
+            }
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            //Flickr returned an error
+            guard (error == nil) else {
+                completionHandler(nil, error)
+                return
+            }
+            //There wasn't a status code
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
+                completionHandler(nil, RequestError.noStatusCode(url: url.absoluteString))
+                return
+            }
+            //Status code returned no 'OK'
+            guard statusCode >= 200 && statusCode <= 299 else {
+                completionHandler(nil, RequestError.statusCodeNotOK(status: "\(statusCode): \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"))
+                return
+            }
+            //No data!
+            guard let data = data else {
+                completionHandler(nil, RequestError.noData(url: url.absoluteString))
+                return
+            }
+            
+            //Attempt to parse results
+            let parsedResult: [String:AnyObject]!
+            do {
+                parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:AnyObject]
+            } catch {
+                completionHandler(nil, RequestError.couldNotParseJSON(data: "\(data)"))
+                return
+            }
+            
+            //Finally check if JSON contains OKStatus from Flickr
+            guard let stat = parsedResult[ResponseKeys.Status] as? String, stat == ResponseValues.OKStatus else {
+                completionHandler(nil, RequestError.statusCodeNotOK(status: "Flickr API returned an error. See error code and message in \(parsedResult)"))
+                return
+            }
+            
+            //All good
+            completionHandler(parsedResult, nil)
+        }
+        return task
     }
     
     private func constructURL(parameters: [String:Any]) -> URL? {
