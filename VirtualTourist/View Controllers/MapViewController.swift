@@ -23,7 +23,7 @@ class MapViewController: UIViewController {
         let longitudeDescriptor = NSSortDescriptor(key: "longitude", ascending: true)
         fetchRequest.sortDescriptors = [latitudeDescriptor, longitudeDescriptor]
         
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "pins")
         fetchedResultsController.delegate = self
         
         do {
@@ -112,6 +112,7 @@ extension MapViewController: MKMapViewDelegate {
             
             // Add pin to new PhotosViewController and push on to Navigation stack
             photosViewController.pin = pin
+            photosViewController.dataController = dataController
             self.navigationController?.pushViewController(photosViewController, animated: true)            
         }
     }

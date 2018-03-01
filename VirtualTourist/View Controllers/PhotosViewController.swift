@@ -23,12 +23,12 @@ class PhotosViewController: UIViewController {
         let fetchRequest:NSFetchRequest<Photo> = Photo.fetchRequest()
         let predicate = NSPredicate(format: "pin == %@", pin)
         fetchRequest.predicate = predicate
-        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "url", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "\(pin)-notes")
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "\(pin)-photos")
         fetchedResultsController.delegate = self
-        
+
         do {
             try fetchedResultsController.performFetch()
         } catch {
@@ -44,6 +44,8 @@ class PhotosViewController: UIViewController {
         topMapView.addAnnotation(pin)
         
         photosCollectionView.collectionViewLayout = createPhotoLayout(columns: 3, columnMargin: 5, rowMargin: 7)
+        
+        setupFetchedResultsController()
         
     }
     
@@ -67,15 +69,20 @@ class PhotosViewController: UIViewController {
 // MARK: - Collection view data source
 extension PhotosViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return fetchedResultsController.sections?.count ?? 1
-        return 21
+        return fetchedResultsController.sections?[0].numberOfObjects ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        //let photo = fetchedResultsController.object(at: indexPath)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCell
-        // TODO: - insert image into to PhotoCell
-        cell.imageView.image = UIImage(named: "placeholder.png")
+        
+        let photo = fetchedResultsController.object(at: indexPath)
+
+        if let image = photo.image {
+            //TODO: Retrieve stored image from CoreData
+        } else {
+            cell.imageView.image = UIImage(named: "placeholder.png")
+        }
+        
         return cell
     }
 }
