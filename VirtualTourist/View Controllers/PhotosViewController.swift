@@ -26,7 +26,7 @@ class PhotosViewController: UIViewController {
         let sortDescriptor = NSSortDescriptor(key: "url", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "\(pin)-photos")
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController.delegate = self
 
         do {
@@ -44,9 +44,25 @@ class PhotosViewController: UIViewController {
         topMapView.addAnnotation(pin)
         
         photosCollectionView.collectionViewLayout = createPhotoLayout(columns: 3, columnMargin: 5, rowMargin: 7)
-        
         setupFetchedResultsController()
         
+        if( fetchedResultsController.sections?[0].numberOfObjects == 0 ) {
+            let flickrClient = FlickrClient()
+            flickrClient.findPhotosForLocation(latitude: pin.latitude, longitude: pin.longitude, radius: 0.5, numberOfPhotos: 21) {(results, error) -> Void in
+                guard error == nil, let results = results else {
+                    print("Requests for photos did not work")
+                    return
+                }
+                for photoDetails in results {
+                    let photo = Photo(context: self.dataController.viewContext)
+                    photo.title = photoDetails["title"] as? String
+                    photo.url = photoDetails["url_m"] as? String
+                    photo.pin = self.pin
+                    try? self.dataController.viewContext.save()
+                }
+            }
+        }
+
     }
     
     override func viewDidDisappear(_ animated: Bool) {

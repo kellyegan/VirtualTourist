@@ -10,6 +10,24 @@ import Foundation
 
 class FlickrClient: NSObject {
     
+    enum RequestError: Error, LocalizedError {
+        case noStatusCode(url: String)
+        case statusCodeNotOK(status: String)
+        case noData(url: String)
+        case couldNotParseJSON(data: String)
+        case general(status: String)
+        
+        var errorDescription: String? {
+            switch self {
+            case .noStatusCode(let url): return "No status code returned for '\(url)'"
+            case .statusCodeNotOK(let status): return status
+            case .noData(let url): return "No data was returned for '\(url)'"
+            case .couldNotParseJSON(let data): return "Could not parse the to JSON: \(data)"
+            case .general(let status): return status
+            }
+        }
+    }
+    
     /**
      Create a request for an image search at a specific coordinate and given radius. Searches only photos in the last year.
      
@@ -18,7 +36,7 @@ class FlickrClient: NSObject {
      - parameter radius: Radius around coordinate to search in kilometers
      
      */
-    func searchPhotosByLocation( latitude: Double, longitude: Double, radius: Double ) {
+    func findPhotosForLocation( latitude: Double, longitude: Double, radius: Double, numberOfPhotos: Int, completionHandler: @escaping (_ results: [[String:AnyObject]]?, _ error: Error?) -> Void ) {
         let yearInSeconds:Double = 60 * 60 * 24 * 365
         let aYearAgo = Date() - yearInSeconds
         
@@ -32,32 +50,41 @@ class FlickrClient: NSObject {
             ] as [String : Any]
         
         guard let url = constructURL(parameters: methodParameters) else {
-            print("Could not construct URL")
+            completionHandler(nil, RequestError.general(status: "Could not construct URL"))
             return
         }
         
         let task = taskWithURL(url: url) {(data, error) -> Void in
             guard error == nil, let data = data else {
-                print(error!.localizedDescription)
+                completionHandler(nil, error!)
                 return
             }
             
             guard let photosDictionary = data[ResponseKeys.Photos] as? [String:AnyObject], let photoArray = photosDictionary[ResponseKeys.Photo] as? [[String:AnyObject]] else {
-                print("Cannot find keys '\(ResponseKeys.Photos)' and '\(ResponseKeys.Photo)' in \(data)")
+                completionHandler(nil, RequestError.general(status: "Cannot find keys '\(ResponseKeys.Photos)' and '\(ResponseKeys.Photo)' in \(data)"))
                 return
             }
             
-            //Pick random photo in the first page of results. Perhaps update to look through all photos
-            let randomPhotoIndex = Int(arc4random_uniform(UInt32(photoArray.count)))
-            let photoDetails = photoArray[randomPhotoIndex] as [String:AnyObject]
+            //Shuffle all photos
+            let shuffledPhotos = photoArray.shuffle()
+            let total = min(shuffledPhotos.count, numberOfPhotos)
+            var current = 0
+            var index = 0
             
-            //Check if there is a url for medium resolution image. Perhaps better as a loop that looks for other photos if fail?
-            guard let imageURLString = photoDetails[ResponseKeys.MediumURL] as? String else {
-                print("Cannot find key '\(ResponseKeys.MediumURL)' in \(photoDetails)")
-                return
+            var selectedPhotos: [[String:AnyObject]] = Array()
+            
+            // Iterate through shuffled photos until find
+            // total needed with url strings or we run out of choices
+            while( current < total && index < shuffledPhotos.count ) {
+                let photoDetails = shuffledPhotos[index]
+                if (photoDetails[ResponseKeys.MediumURL] as? String) != nil {
+                    current = current + 1
+                    selectedPhotos.append(photoDetails)
+                }
+                
+                index = index + 1
             }
-            
-            print(imageURLString)
+            completionHandler(selectedPhotos, nil)
         }
         
         task.resume()
@@ -65,21 +92,6 @@ class FlickrClient: NSObject {
     
     private func taskWithURL( url: URL, completionHandler: @escaping (_ results: [String:AnyObject]?, _ error: Error?) -> Void ) -> URLSessionTask {
         
-        enum RequestError: Error, LocalizedError {
-            case noStatusCode(url: String)
-            case statusCodeNotOK(status: String)
-            case noData(url: String)
-            case couldNotParseJSON(data: String)
-            
-            var errorDescription: String? {
-                switch self {
-                case .noStatusCode(let url): return "No status code returned for '\(url)'"
-                case .statusCodeNotOK(let status): return status
-                case .noData(let url): return "No data was returned for '\(url)'"
-                case .couldNotParseJSON(let data): return "Could not parse the to JSON: \(data)"
-                }
-            }
-        }
         
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             //Flickr returned an error

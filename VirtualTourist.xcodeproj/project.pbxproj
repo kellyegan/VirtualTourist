@@ -25,6 +25,7 @@
 		FBBD87942045BB2F008DDADD /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBD87932045BB2F008DDADD /* PhotoCell.swift */; };
 		FBD1931D203DED0E00B09D91 /* Pin+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1931C203DED0D00B09D91 /* Pin+Extensions.swift */; };
 		FBDEA848203B1EC800C43CAF /* PinTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDEA847203B1EC800C43CAF /* PinTest.swift */; };
+		FBF0137620485E76000B4F03 /* ArrayShuffle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0137520485E76000B4F03 /* ArrayShuffle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		FBBD87932045BB2F008DDADD /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		FBD1931C203DED0D00B09D91 /* Pin+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pin+Extensions.swift"; sourceTree = "<group>"; };
 		FBDEA847203B1EC800C43CAF /* PinTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinTest.swift; sourceTree = "<group>"; };
+		FBF0137520485E76000B4F03 /* ArrayShuffle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayShuffle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 				FB44BF222045C04B00816971 /* Storyboards */,
 				FB44BF212045C00300816971 /* Assets */,
 				FB41FC2A20371F41004FDBBD /* Info.plist */,
+				FBF0137520485E76000B4F03 /* ArrayShuffle.swift */,
 			);
 			path = VirtualTourist;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				FBA044962043463600180143 /* MapTools.swift in Sources */,
 				FBA0449B2043618C00180143 /* FlickrClient.swift in Sources */,
 				FBA04499204360F700180143 /* FlickrConstants.swift in Sources */,
+				FBF0137620485E76000B4F03 /* ArrayShuffle.swift in Sources */,
 				FB41FC5420372658004FDBBD /* DataController.swift in Sources */,
 				FBBD87942045BB2F008DDADD /* PhotoCell.swift in Sources */,
 				FB41FC5220372516004FDBBD /* VirtualTourist.xcdatamodeld in Sources */,
