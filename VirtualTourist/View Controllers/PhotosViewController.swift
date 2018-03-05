@@ -86,6 +86,13 @@ class PhotosViewController: UIViewController {
         layout.minimumLineSpacing = rowMargin
         return layout
     }
+    
+    func performUIUpdatesOnMain(_ updates: @escaping () -> Void) {
+        DispatchQueue.main.async {
+            updates()
+        }
+    }
+
 }
 
 // -------------------------------------------------------------------------
@@ -102,8 +109,26 @@ extension PhotosViewController: UICollectionViewDataSource {
 
         if let image = photo.image {
             //TODO: Retrieve stored image from CoreData
+            let uiImage = UIImage(data: image)
+            print("Grabbed saved image")
+            self.performUIUpdatesOnMain {
+                cell.imageView.image = uiImage
+            }
         } else {
             cell.imageView.image = UIImage(named: "placeholder.png")
+            
+            if let url = photo.url, let imageURL = URL(string: url) {
+                let task = URLSession.shared.dataTask(with: imageURL) { (data, response, error) in
+                    guard error == nil else {
+                        print("ERROR: \(error!.localizedDescription)")
+                        return
+                    }
+                    self.performUIUpdatesOnMain {
+                        photo.image = data
+                    }
+                }
+                task.resume()
+            }
         }
         
         return cell
@@ -119,5 +144,20 @@ extension PhotosViewController: UICollectionViewDelegate {
 // -------------------------------------------------------------------------
 // MARK: - Fetched Results Controller
 extension PhotosViewController: NSFetchedResultsControllerDelegate {
-    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        guard anObject is Photo else {
+            preconditionFailure("Object is not of type Photo")
+        }
+        
+        switch type {
+        case .insert:
+            photosCollectionView!.insertItems(at: [newIndexPath!])
+        case .delete:
+            photosCollectionView!.deleteItems(at: [indexPath!])
+        case .update:
+            photosCollectionView!.reloadItems(at: [indexPath!])
+        case .move:
+            photosCollectionView!.moveItem(at: indexPath!, to: newIndexPath!)
+        }
+    }
 }
