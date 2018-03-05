@@ -67,6 +67,7 @@ class PhotosViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        fetchedResultsController = nil
     }
     
     fileprivate func createPhotoLayout(columns: CGFloat, columnMargin: CGFloat, rowMargin: CGFloat) -> UICollectionViewFlowLayout {
