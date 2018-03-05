@@ -51,6 +51,14 @@ class MapViewController: UIViewController {
         longPress.minimumPressDuration = 1.0
         mapView.addGestureRecognizer(longPress)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //This is important to make sure you can add pins when returning to the mapView
+        setupFetchedResultsController()
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
