@@ -113,6 +113,7 @@ extension MapViewController: MKMapViewDelegate {
             // Add pin to new PhotosViewController and push on to Navigation stack
             photosViewController.pin = pin
             photosViewController.dataController = dataController
+            mapView.deselectAnnotation(view.annotation, animated: false)
             self.navigationController?.pushViewController(photosViewController, animated: true)            
         }
     }
