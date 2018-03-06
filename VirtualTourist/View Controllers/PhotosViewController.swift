@@ -47,22 +47,8 @@ class PhotosViewController: UIViewController {
         setupFetchedResultsController()
         
         if( fetchedResultsController.sections?[0].numberOfObjects == 0 ) {
-            let flickrClient = FlickrClient()
-            flickrClient.findPhotosForLocation(latitude: pin.latitude, longitude: pin.longitude, radius: 0.5, numberOfPhotos: 21) {(results, error) -> Void in
-                guard error == nil, let results = results else {
-                    print("Requests for photos did not work")
-                    return
-                }
-                for photoDetails in results {
-                    let photo = Photo(context: self.dataController.viewContext)
-                    photo.title = photoDetails["title"] as? String
-                    photo.url = photoDetails["url_m"] as? String
-                    photo.pin = self.pin
-                    try? self.dataController.viewContext.save()
-                }
-            }
+            pin.findPhotosForPin(context: dataController.viewContext)
         }
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -92,7 +78,6 @@ class PhotosViewController: UIViewController {
             updates()
         }
     }
-
 }
 
 // -------------------------------------------------------------------------
@@ -108,9 +93,7 @@ extension PhotosViewController: UICollectionViewDataSource {
         let photo = fetchedResultsController.object(at: indexPath)
 
         if let image = photo.image {
-            //TODO: Retrieve stored image from CoreData
             let uiImage = UIImage(data: image)
-            print("Grabbed saved image")
             self.performUIUpdatesOnMain {
                 cell.imageView.image = uiImage
             }
