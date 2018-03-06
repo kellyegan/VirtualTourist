@@ -14,10 +14,15 @@ class PhotosViewController: UIViewController {
     
     @IBOutlet weak var topMapView: MKMapView!
     @IBOutlet weak var photosCollectionView: UICollectionView!
+    @IBOutlet weak var editButton: UIBarButtonItem!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
+    @IBOutlet weak var refreshButton: UIBarButtonItem!
     
     var dataController: DataController!
     var fetchedResultsController:NSFetchedResultsController<Photo>!
     var pin: Pin!
+    var editCollection: Bool!
+    var defaultButtonColor: UIColor!
     
     fileprivate func setupFetchedResultsController() {
         let fetchRequest:NSFetchRequest<Photo> = Photo.fetchRequest()
@@ -44,7 +49,15 @@ class PhotosViewController: UIViewController {
         topMapView.addAnnotation(pin)
         
         photosCollectionView.collectionViewLayout = createPhotoLayout(columns: 3, columnMargin: 5, rowMargin: 7)
+        
         setupFetchedResultsController()
+        
+        editCollection = false
+        
+        defaultButtonColor = cancelButton.tintColor
+        
+        setEditingDisplay(editCollection)
+        
         
         if( fetchedResultsController.sections?[0].numberOfObjects == 0 ) {
             pin.findPhotosForPin(context: dataController.viewContext)
@@ -78,6 +91,40 @@ class PhotosViewController: UIViewController {
             updates()
         }
     }
+    
+    @IBAction func editPhotosCollection(_ sender: UIBarButtonItem) {
+        if( editCollection ) {
+            editCollection = false
+            //TODO: - Delete the photos
+        } else {
+            //Cancel
+            editCollection = true
+        }
+        setEditingDisplay(editCollection)
+    }
+    
+    @IBAction func cancelEditPhotoCollection(_ sender: UIBarButtonItem) {
+        editCollection = false
+        setEditingDisplay(editCollection)
+    }
+    
+    @IBAction func refreshPhotoCollection(_ sender: UIBarButtonItem) {
+        //TODO: - Delete and refresh photo collection
+    }
+    
+    fileprivate func setEditingDisplay(_ edit: Bool) {
+        if( edit ) {
+            cancelButton.isEnabled = true
+            cancelButton.tintColor = defaultButtonColor
+            refreshButton.isEnabled = false
+            editButton.title = "Delete selected"
+        } else {
+            cancelButton.isEnabled = false
+            cancelButton.tintColor = UIColor.clear
+            refreshButton.isEnabled = true
+            editButton.title = "Edit"
+        }
+    }
 }
 
 // -------------------------------------------------------------------------
@@ -89,7 +136,6 @@ extension PhotosViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCell
-        
         let photo = fetchedResultsController.object(at: indexPath)
 
         if let image = photo.image {
@@ -121,7 +167,13 @@ extension PhotosViewController: UICollectionViewDataSource {
 // -------------------------------------------------------------------------
 // MARK: - Collection view delegate
 extension PhotosViewController: UICollectionViewDelegate {
-
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        
+    }
 }
 
 // -------------------------------------------------------------------------

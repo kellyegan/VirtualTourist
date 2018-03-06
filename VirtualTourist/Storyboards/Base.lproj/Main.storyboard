@@ -61,7 +61,22 @@
                                     <constraint firstAttribute="height" constant="44" id="WF7-EE-AcN"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem title="Item" id="5Jn-J9-xQd"/>
+                                    <barButtonItem title="Edit" id="5Jn-J9-xQd">
+                                        <connections>
+                                            <action selector="editPhotosCollection:" destination="cVE-91-bVK" id="xes-Su-E5U"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem systemItem="cancel" id="4Qe-eV-nlT">
+                                        <connections>
+                                            <action selector="cancelEditPhotoCollection:" destination="cVE-91-bVK" id="ujx-4s-mZM"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="7G6-g4-JTC"/>
+                                    <barButtonItem systemItem="refresh" id="iuh-PI-GZR">
+                                        <connections>
+                                            <action selector="refreshPhotoCollection:" destination="cVE-91-bVK" id="BSt-BL-9cm"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hOO-qP-xO0">
@@ -119,7 +134,10 @@
                         <viewLayoutGuide key="safeArea" id="BtE-mP-4HM"/>
                     </view>
                     <connections>
+                        <outlet property="cancelButton" destination="4Qe-eV-nlT" id="04j-q1-1h3"/>
+                        <outlet property="editButton" destination="5Jn-J9-xQd" id="P6z-Cy-aqy"/>
                         <outlet property="photosCollectionView" destination="hOO-qP-xO0" id="NVb-nA-pqa"/>
+                        <outlet property="refreshButton" destination="iuh-PI-GZR" id="FcM-2B-hYr"/>
                         <outlet property="topMapView" destination="9X5-iM-4Ob" id="o2X-hp-i2w"/>
                     </connections>
                 </viewController>
