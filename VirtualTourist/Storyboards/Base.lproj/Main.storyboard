@@ -139,11 +139,41 @@
                         <outlet property="photosCollectionView" destination="hOO-qP-xO0" id="NVb-nA-pqa"/>
                         <outlet property="refreshButton" destination="iuh-PI-GZR" id="FcM-2B-hYr"/>
                         <outlet property="topMapView" destination="9X5-iM-4Ob" id="o2X-hp-i2w"/>
+                        <segue destination="lEI-s8-aaU" kind="show" identifier="showPhotoDetail" action="showDetailViewController:sender:" id="44N-P6-Br7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EJZ-e6-E0w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1648.8" y="115.59220389805098"/>
+        </scene>
+        <!--Photo Detail View Controller-->
+        <scene sceneID="hV7-B1-RlN">
+            <objects>
+                <viewController storyboardIdentifier="PhotoDetailViewController" id="lEI-s8-aaU" customClass="PhotoDetailViewController" customModule="VirtualTourist" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Tw5-Ft-1h8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="58K-S3-WLa">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="58K-S3-WLa" firstAttribute="top" secondItem="2to-J2-Kbc" secondAttribute="top" id="6VJ-An-N81"/>
+                            <constraint firstItem="58K-S3-WLa" firstAttribute="leading" secondItem="2to-J2-Kbc" secondAttribute="leading" id="PWI-zC-D9C"/>
+                            <constraint firstItem="2to-J2-Kbc" firstAttribute="trailing" secondItem="58K-S3-WLa" secondAttribute="trailing" id="SKq-z0-Xq2"/>
+                            <constraint firstItem="2to-J2-Kbc" firstAttribute="bottom" secondItem="58K-S3-WLa" secondAttribute="bottom" id="bl2-ad-2FL"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="2to-J2-Kbc"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="58K-S3-WLa" id="fKg-hW-8jT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YSC-do-4kN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2434" y="116"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="kcA-6r-VNA">

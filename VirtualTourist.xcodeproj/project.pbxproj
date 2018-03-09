@@ -23,6 +23,7 @@
 		FBA0449B2043618C00180143 /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA0449A2043618C00180143 /* FlickrClient.swift */; };
 		FBA0449F2043658400180143 /* FlickrApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA0449E2043658400180143 /* FlickrApp.swift */; };
 		FBBD87942045BB2F008DDADD /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBD87932045BB2F008DDADD /* PhotoCell.swift */; };
+		FBBE668520523A7300636C10 /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBE668420523A7300636C10 /* PhotoDetailViewController.swift */; };
 		FBD1931D203DED0E00B09D91 /* Pin+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1931C203DED0D00B09D91 /* Pin+Extensions.swift */; };
 		FBF0137620485E76000B4F03 /* ArrayShuffle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0137520485E76000B4F03 /* ArrayShuffle.swift */; };
 /* End PBXBuildFile section */
@@ -67,6 +68,7 @@
 		FBA0449A2043618C00180143 /* FlickrClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
 		FBA0449E2043658400180143 /* FlickrApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrApp.swift; sourceTree = "<group>"; };
 		FBBD87932045BB2F008DDADD /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		FBBE668420523A7300636C10 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
 		FBD1931C203DED0D00B09D91 /* Pin+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pin+Extensions.swift"; sourceTree = "<group>"; };
 		FBF0137520485E76000B4F03 /* ArrayShuffle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayShuffle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -166,6 +168,7 @@
 				FB41FC1D20371F41004FDBBD /* MapViewController.swift */,
 				FBA044932043025500180143 /* PhotosViewController.swift */,
 				FBA044952043463600180143 /* MapTools.swift */,
+				FBBE668420523A7300636C10 /* PhotoDetailViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 				FBA04499204360F700180143 /* FlickrConstants.swift in Sources */,
 				FBF0137620485E76000B4F03 /* ArrayShuffle.swift in Sources */,
 				FB41FC5420372658004FDBBD /* DataController.swift in Sources */,
+				FBBE668520523A7300636C10 /* PhotoDetailViewController.swift in Sources */,
 				FBBD87942045BB2F008DDADD /* PhotoCell.swift in Sources */,
 				FB41FC5220372516004FDBBD /* VirtualTourist.xcdatamodeld in Sources */,
 				FB41FC1E20371F41004FDBBD /* MapViewController.swift in Sources */,
