@@ -13,6 +13,7 @@ import MapKit
 class MapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
+    var cities: [City]?
     
     var dataController:DataController!
     var fetchedResultsController:NSFetchedResultsController<Pin>!
@@ -38,8 +39,21 @@ class MapViewController: UIViewController {
         
         mapView.delegate = self
         
-        //Initial location Providence, RI
-        MapTools.center(map: mapView, latitude: 41.8240, longitude: -71.4128, radius: 5000)
+        //Load city data
+        if let path = Bundle.main.path(forResource: "worldcities", ofType: "json") {
+            if let data = try? Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe) {
+                let decoder = JSONDecoder()
+                do {
+                    cities = try decoder.decode([City].self, from: data)
+                } catch {
+                    print("Error trying to convert data to JSON")
+                    print(error)
+                }
+            }
+        }
+        
+        centerOnRandomCity()
+        
         setupFetchedResultsController()
         
         if let pins = fetchedResultsController.fetchedObjects {
@@ -68,6 +82,21 @@ class MapViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         fetchedResultsController = nil
+    }
+    
+    fileprivate func centerOnRandomCity() {
+        //Default location Providence, RI
+        var latitude = 41.8240
+        var longitude = -71.4128
+        
+        if let cities = cities {
+            let index = Int(arc4random_uniform(UInt32(cities.count)))
+            let city = cities[index]
+            latitude = city.latitude
+            longitude = city.longitude
+        }
+        
+        MapTools.center(map: mapView, latitude: latitude, longitude: longitude, radius: 5000)
     }
     
     @objc func mapLongPress(_ recognizer: UIGestureRecognizer) {
