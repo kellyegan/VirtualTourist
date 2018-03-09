@@ -66,7 +66,7 @@
                                             <action selector="editPhotosCollection:" destination="cVE-91-bVK" id="xes-Su-E5U"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem systemItem="cancel" id="4Qe-eV-nlT">
+                                    <barButtonItem title="Cancel" id="4Qe-eV-nlT">
                                         <connections>
                                             <action selector="cancelEditPhotoCollection:" destination="cVE-91-bVK" id="ujx-4s-mZM"/>
                                         </connections>

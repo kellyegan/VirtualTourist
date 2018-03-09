@@ -22,24 +22,8 @@ class PhotosViewController: UIViewController {
     var fetchedResultsController:NSFetchedResultsController<Photo>!
     var pin: Pin!
     var editCollection: Bool!
-    var defaultButtonColor: UIColor!
-    
-    fileprivate func setupFetchedResultsController() {
-        let fetchRequest:NSFetchRequest<Photo> = Photo.fetchRequest()
-        let predicate = NSPredicate(format: "pin == %@", pin)
-        fetchRequest.predicate = predicate
-        let sortDescriptor = NSSortDescriptor(key: "url", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        fetchedResultsController.delegate = self
-
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            fatalError("The fetch could not be performed: \(error.localizedDescription)")
-        }
-    }
+    var defaultButtonColor: UIColor!    
+    var blockOperations: [BlockOperation] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,14 +33,13 @@ class PhotosViewController: UIViewController {
         topMapView.addAnnotation(pin)
         
         photosCollectionView.collectionViewLayout = createPhotoLayout(columns: 3, columnMargin: 5, rowMargin: 7)
+        photosCollectionView.delegate = self
         
         setupFetchedResultsController()
         
         editCollection = false
-        
         defaultButtonColor = cancelButton.tintColor
-        
-        setEditingDisplay(editCollection)
+        setEditing(editCollection)
         
         
         if( fetchedResultsController.sections?[0].numberOfObjects == 0 ) {
@@ -75,6 +58,12 @@ class PhotosViewController: UIViewController {
         fetchedResultsController = nil
     }
     
+    func deletePhoto(at indexPath: IndexPath) {
+        let photoToDelete = fetchedResultsController.object(at: indexPath)
+        dataController.viewContext.delete(photoToDelete)
+        try? dataController.viewContext.save()
+    }
+    
     fileprivate func createPhotoLayout(columns: CGFloat, columnMargin: CGFloat, rowMargin: CGFloat) -> UICollectionViewFlowLayout {
         
         let photoCellSize = UIScreen.main.bounds.width / columns - columnMargin
@@ -86,39 +75,59 @@ class PhotosViewController: UIViewController {
         return layout
     }
     
-    func performUIUpdatesOnMain(_ updates: @escaping () -> Void) {
-        DispatchQueue.main.async {
-            updates()
-        }
-    }
-    
     @IBAction func editPhotosCollection(_ sender: UIBarButtonItem) {
         if( editCollection ) {
             editCollection = false
-            //TODO: - Delete the photos
+            if let indexPaths = photosCollectionView.indexPathsForSelectedItems {
+                var photosToDelete = [Photo]()
+                for indexPath in indexPaths {
+                    photosToDelete.append(fetchedResultsController.object(at: indexPath))
+                }
+                for photoToDelete in photosToDelete {
+                    dataController.viewContext.delete(photoToDelete)
+                    try? dataController.viewContext.save()
+                }
+            }
         } else {
-            //Cancel
             editCollection = true
         }
-        setEditingDisplay(editCollection)
+        setEditing(editCollection)
     }
     
     @IBAction func cancelEditPhotoCollection(_ sender: UIBarButtonItem) {
         editCollection = false
-        setEditingDisplay(editCollection)
+        setEditing(editCollection)
     }
     
     @IBAction func refreshPhotoCollection(_ sender: UIBarButtonItem) {
-        //TODO: - Delete and refresh photo collection
+        if let photos = fetchedResultsController.fetchedObjects {
+            for photo in photos {
+                dataController.viewContext.delete(photo)
+                try? dataController.viewContext.save()
+            }
+        }
+        dataController.viewContext.refreshAllObjects()
+        pin.findPhotosForPin(context: dataController.viewContext)
     }
     
-    fileprivate func setEditingDisplay(_ edit: Bool) {
+    fileprivate func setEditing(_ edit: Bool) {
+        if let indexPaths = photosCollectionView.indexPathsForSelectedItems {
+            for indexPath in indexPaths {
+                if let cell = photosCollectionView.cellForItem(at: indexPath) as? PhotoCell {
+                    cell.imageView.alpha = 1.0
+                }
+            }
+        }
         if( edit ) {
+            photosCollectionView.allowsSelection = true
+            photosCollectionView.allowsMultipleSelection = true
             cancelButton.isEnabled = true
             cancelButton.tintColor = defaultButtonColor
             refreshButton.isEnabled = false
             editButton.title = "Delete selected"
         } else {
+            photosCollectionView.allowsSelection = false
+            photosCollectionView.allowsMultipleSelection = false
             cancelButton.isEnabled = false
             cancelButton.tintColor = UIColor.clear
             refreshButton.isEnabled = true
@@ -137,10 +146,15 @@ extension PhotosViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCell
         let photo = fetchedResultsController.object(at: indexPath)
+        
+        DispatchQueue.main.async {
+            //If cell is selected fade it out slightly.
+            cell.imageView.alpha = cell.isSelected ? 0.4 : 1.0
+        }
 
         if let image = photo.image {
             let uiImage = UIImage(data: image)
-            self.performUIUpdatesOnMain {
+            DispatchQueue.main.async {
                 cell.imageView.image = uiImage
             }
         } else {
@@ -152,7 +166,7 @@ extension PhotosViewController: UICollectionViewDataSource {
                         print("ERROR: \(error!.localizedDescription)")
                         return
                     }
-                    self.performUIUpdatesOnMain {
+                    DispatchQueue.main.async {
                         photo.image = data
                     }
                 }
@@ -168,17 +182,44 @@ extension PhotosViewController: UICollectionViewDataSource {
 // MARK: - Collection view delegate
 extension PhotosViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = photosCollectionView.cellForItem(at: indexPath) as? PhotoCell {
+            cell.imageView.alpha = 0.4
+        }
         
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        
+        if let cell = photosCollectionView.cellForItem(at: indexPath) as? PhotoCell {
+            cell.imageView.alpha = 1.0
+        }
     }
 }
 
 // -------------------------------------------------------------------------
 // MARK: - Fetched Results Controller
 extension PhotosViewController: NSFetchedResultsControllerDelegate {
+    
+    fileprivate func setupFetchedResultsController() {
+        let fetchRequest:NSFetchRequest<Photo> = Photo.fetchRequest()
+        let predicate = NSPredicate(format: "pin == %@", pin)
+        fetchRequest.predicate = predicate
+        let sortDescriptor = NSSortDescriptor(key: "url", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController.delegate = self
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            fatalError("The fetch could not be performed: \(error.localizedDescription)")
+        }
+    }
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        blockOperations.removeAll(keepingCapacity: false)
+    }
+    
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         guard anObject is Photo else {
             preconditionFailure("Object is not of type Photo")
@@ -186,13 +227,44 @@ extension PhotosViewController: NSFetchedResultsControllerDelegate {
         
         switch type {
         case .insert:
-            photosCollectionView!.insertItems(at: [newIndexPath!])
+//            photosCollectionView!.insertItems(at: [newIndexPath!])
+            blockOperations.append( BlockOperation(block: {[weak self] in
+                if let this = self {
+                    this.photosCollectionView.insertItems(at: [newIndexPath!])
+                }
+            }))
         case .delete:
-            photosCollectionView!.deleteItems(at: [indexPath!])
+//            photosCollectionView!.deleteItems(at: [indexPath!])
+            blockOperations.append( BlockOperation(block: {[weak self] in
+                if let this = self {
+                    this.photosCollectionView.deleteItems(at: [indexPath!])
+                }
+            }))
         case .update:
-            photosCollectionView!.reloadItems(at: [indexPath!])
+//            photosCollectionView!.reloadItems(at: [indexPath!])
+            blockOperations.append( BlockOperation(block: {[weak self] in
+                if let this = self {
+                    this.photosCollectionView.reloadItems(at: [indexPath!])
+                }
+            }))
         case .move:
-            photosCollectionView!.moveItem(at: indexPath!, to: newIndexPath!)
+//            photosCollectionView!.moveItem(at: indexPath!, to: newIndexPath!)
+            blockOperations.append( BlockOperation(block: {[weak self] in
+                if let this = self {
+                    this.photosCollectionView.moveItem(at: indexPath!, to: newIndexPath!)
+                }
+            }))
         }
     }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        photosCollectionView.performBatchUpdates({ () -> Void in
+            for operation in blockOperations {
+                operation.start()
+            }
+        }, completion: { (finished) -> Void in
+            self.blockOperations.removeAll(keepingCapacity: false)
+        })
+    }
+
 }
