@@ -39,7 +39,7 @@ class MapViewController: UIViewController {
         mapView.delegate = self
         
         //Initial location Providence, RI
-        MapTools.center(map: mapView, latitude: 41.8240, longitude: -71.4128, radius: 1000)
+        MapTools.center(map: mapView, latitude: 41.8240, longitude: -71.4128, radius: 5000)
         setupFetchedResultsController()
         
         if let pins = fetchedResultsController.fetchedObjects {

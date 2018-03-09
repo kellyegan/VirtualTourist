@@ -11,29 +11,23 @@ import UIKit
 class PhotoDetailViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var photoTitle: UILabel!
     
     var photo: Photo!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        //Set up word wrapping on Photo title
+        photoTitle.lineBreakMode = .byWordWrapping
+        photoTitle.numberOfLines = 0
+        
+        if let image = photo.image {
+            let uiImage = UIImage(data: image)
+            DispatchQueue.main.async {
+                self.photoTitle.text = self.photo.title ?? ""
+                self.imageView.image = uiImage
+            }
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

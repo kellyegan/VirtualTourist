@@ -119,14 +119,12 @@ class PhotosViewController: UIViewController {
             }
         }
         if( edit ) {
-            photosCollectionView.allowsSelection = true
             photosCollectionView.allowsMultipleSelection = true
             cancelButton.isEnabled = true
             cancelButton.tintColor = defaultButtonColor
             refreshButton.isEnabled = false
             editButton.title = "Delete selected"
         } else {
-            photosCollectionView.allowsSelection = false
             photosCollectionView.allowsMultipleSelection = false
             cancelButton.isEnabled = false
             cancelButton.tintColor = UIColor.clear
@@ -182,10 +180,20 @@ extension PhotosViewController: UICollectionViewDataSource {
 // MARK: - Collection view delegate
 extension PhotosViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = photosCollectionView.cellForItem(at: indexPath) as? PhotoCell {
-            cell.imageView.alpha = 0.4
+        print("Clicked on \(indexPath)")
+        if( editCollection ) {
+            if let cell = photosCollectionView.cellForItem(at: indexPath) as? PhotoCell {
+                cell.imageView.alpha = 0.4
+            }
+        } else {
+            //Create new PhotosViewController
+            let storyboard = UIStoryboard (name: "Main", bundle: nil)
+            let photoDetailViewController = storyboard.instantiateViewController(withIdentifier: "PhotoDetailViewController") as! PhotoDetailViewController
+            let photo = fetchedResultsController.object(at: indexPath) as Photo
+            // Add pin to new PhotosViewController and push on to Navigation stack
+            photoDetailViewController.photo = photo
+            self.navigationController?.pushViewController(photoDetailViewController, animated: true)
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -227,28 +235,24 @@ extension PhotosViewController: NSFetchedResultsControllerDelegate {
         
         switch type {
         case .insert:
-//            photosCollectionView!.insertItems(at: [newIndexPath!])
             blockOperations.append( BlockOperation(block: {[weak self] in
                 if let this = self {
                     this.photosCollectionView.insertItems(at: [newIndexPath!])
                 }
             }))
         case .delete:
-//            photosCollectionView!.deleteItems(at: [indexPath!])
             blockOperations.append( BlockOperation(block: {[weak self] in
                 if let this = self {
                     this.photosCollectionView.deleteItems(at: [indexPath!])
                 }
             }))
         case .update:
-//            photosCollectionView!.reloadItems(at: [indexPath!])
             blockOperations.append( BlockOperation(block: {[weak self] in
                 if let this = self {
                     this.photosCollectionView.reloadItems(at: [indexPath!])
                 }
             }))
         case .move:
-//            photosCollectionView!.moveItem(at: indexPath!, to: newIndexPath!)
             blockOperations.append( BlockOperation(block: {[weak self] in
                 if let this = self {
                     this.photosCollectionView.moveItem(at: indexPath!, to: newIndexPath!)
