@@ -23,6 +23,8 @@
 		FBA04499204360F700180143 /* FlickrConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA04498204360F700180143 /* FlickrConstants.swift */; };
 		FBA0449B2043618C00180143 /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA0449A2043618C00180143 /* FlickrClient.swift */; };
 		FBA0449F2043658400180143 /* FlickrApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA0449E2043658400180143 /* FlickrApp.swift */; };
+		FBB24E4A20537FEB00A2DD73 /* VirtualTourist_Logo.svg in Resources */ = {isa = PBXBuildFile; fileRef = FBB24E4820537FEB00A2DD73 /* VirtualTourist_Logo.svg */; };
+		FBB24E4B20537FEB00A2DD73 /* VirtualTourist_Background.svg in Resources */ = {isa = PBXBuildFile; fileRef = FBB24E4920537FEB00A2DD73 /* VirtualTourist_Background.svg */; };
 		FBBD87942045BB2F008DDADD /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBD87932045BB2F008DDADD /* PhotoCell.swift */; };
 		FBBE668520523A7300636C10 /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBE668420523A7300636C10 /* PhotoDetailViewController.swift */; };
 		FBBE66872052E4A000636C10 /* worldcities.json in Resources */ = {isa = PBXBuildFile; fileRef = FBBE66862052E4A000636C10 /* worldcities.json */; };
@@ -63,13 +65,15 @@
 		FB41FC4020371F41004FDBBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB41FC4F203720FA004FDBBD /* VirtualTourist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VirtualTourist.xcdatamodel; sourceTree = "<group>"; };
 		FB41FC5320372658004FDBBD /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
-		FB44BF272045C44D00816971 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = placeholder.png; path = ImageAssets/placeholder.png; sourceTree = SOURCE_ROOT; };
+		FB44BF272045C44D00816971 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = placeholder.png; path = VirtualTourist/Assets/Images/placeholder.png; sourceTree = SOURCE_ROOT; };
 		FB7116862052E5F3007EE9A9 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		FBA044932043025500180143 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		FBA044952043463600180143 /* MapTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTools.swift; sourceTree = "<group>"; };
 		FBA04498204360F700180143 /* FlickrConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrConstants.swift; sourceTree = "<group>"; };
 		FBA0449A2043618C00180143 /* FlickrClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
 		FBA0449E2043658400180143 /* FlickrApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrApp.swift; sourceTree = "<group>"; };
+		FBB24E4820537FEB00A2DD73 /* VirtualTourist_Logo.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = VirtualTourist_Logo.svg; path = Images/VirtualTourist_Logo.svg; sourceTree = "<group>"; };
+		FBB24E4920537FEB00A2DD73 /* VirtualTourist_Background.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = VirtualTourist_Background.svg; path = Images/VirtualTourist_Background.svg; sourceTree = "<group>"; };
 		FBBD87932045BB2F008DDADD /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		FBBE668420523A7300636C10 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
 		FBBE66862052E4A000636C10 /* worldcities.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = worldcities.json; sourceTree = "<group>"; };
@@ -181,6 +185,8 @@
 		FB44BF212045C00300816971 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				FBB24E4920537FEB00A2DD73 /* VirtualTourist_Background.svg */,
+				FBB24E4820537FEB00A2DD73 /* VirtualTourist_Logo.svg */,
 				FB44BF272045C44D00816971 /* placeholder.png */,
 				FBBE66862052E4A000636C10 /* worldcities.json */,
 				FB41FC2520371F41004FDBBD /* Assets.xcassets */,
@@ -330,10 +336,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBB24E4B20537FEB00A2DD73 /* VirtualTourist_Background.svg in Resources */,
 				FB41FC2920371F41004FDBBD /* LaunchScreen.storyboard in Resources */,
 				FB41FC2620371F41004FDBBD /* Assets.xcassets in Resources */,
 				FBBE66872052E4A000636C10 /* worldcities.json in Resources */,
 				FB44BF282045C44D00816971 /* placeholder.png in Resources */,
+				FBB24E4A20537FEB00A2DD73 /* VirtualTourist_Logo.svg in Resources */,
 				FB41FC2120371F41004FDBBD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

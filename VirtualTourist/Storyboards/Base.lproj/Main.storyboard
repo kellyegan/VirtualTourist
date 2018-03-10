@@ -22,37 +22,58 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ygk-XN-goN">
-                                <rect key="frame" x="125" y="608" width="125" height="39"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="125" id="dhj-hx-XLG"/>
-                                </constraints>
+                                <rect key="frame" x="16" y="608" width="343" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="Visit new city"/>
                                 <connections>
                                     <action selector="pickNewCity:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QwE-ZE-hTj"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to beautiful" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KjO-Qp-kSX">
+                                <rect key="frame" x="16" y="104" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Providence" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dnh-g7-1og">
+                                <rect key="frame" x="16" y="125" width="343" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="pya-dC-dRi"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="0eG-4a-9kZ" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="0AD-bs-q27"/>
+                            <constraint firstItem="Dnh-g7-1og" firstAttribute="top" secondItem="KjO-Qp-kSX" secondAttribute="bottom" id="14V-bI-hc4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ygk-XN-goN" secondAttribute="bottom" constant="20" id="2c7-9D-2Zc"/>
                             <constraint firstItem="0eG-4a-9kZ" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="CkI-3d-qE9"/>
-                            <constraint firstItem="Ygk-XN-goN" firstAttribute="centerX" secondItem="0eG-4a-9kZ" secondAttribute="centerX" id="epi-2Q-Te8"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ygk-XN-goN" secondAttribute="trailing" constant="16" id="DhT-pN-8au"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Dnh-g7-1og" secondAttribute="trailing" constant="16" id="INh-bN-tnH"/>
+                            <constraint firstItem="KjO-Qp-kSX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="SBA-mj-o3a"/>
+                            <constraint firstItem="KjO-Qp-kSX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="T8F-qz-DTM"/>
+                            <constraint firstItem="Dnh-g7-1og" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="VPW-XE-Y5W"/>
                             <constraint firstItem="0eG-4a-9kZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ha5-Cg-Mdi"/>
+                            <constraint firstItem="Ygk-XN-goN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="oYv-P6-Cw0"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KjO-Qp-kSX" secondAttribute="trailing" constant="16" id="uQH-59-8v3"/>
                             <constraint firstItem="0eG-4a-9kZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="v3M-62-RAA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Virtual Tourist" id="9y0-Fj-0yV"/>
+                    <navigationItem key="navigationItem" title="Virtual Tourist" largeTitleDisplayMode="never" id="9y0-Fj-0yV"/>
                     <connections>
+                        <outlet property="cityLabel" destination="Dnh-g7-1og" id="Fqy-sR-wFf"/>
                         <outlet property="mapView" destination="0eG-4a-9kZ" id="UWl-hM-oNr"/>
+                        <outlet property="welcomeLabel" destination="KjO-Qp-kSX" id="BjC-mE-2wA"/>
                         <segue destination="cVE-91-bVK" kind="show" identifier="showPhotos" id="3ds-Nl-7oQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="884" y="116"/>
+            <point key="canvasLocation" x="884" y="115.59220389805098"/>
         </scene>
         <!--Photos View Controller-->
         <scene sceneID="ETB-my-sFg">

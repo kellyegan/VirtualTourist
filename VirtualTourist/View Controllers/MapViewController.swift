@@ -13,8 +13,10 @@ import MapKit
 class MapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
-    var cities: [City]?
+    @IBOutlet weak var welcomeLabel: UILabel!
+    @IBOutlet weak var cityLabel: UILabel!
     
+    var cities: [City]?
     var dataController:DataController!
     var fetchedResultsController:NSFetchedResultsController<Pin>!
 
@@ -64,6 +66,8 @@ class MapViewController: UIViewController {
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.mapLongPress(_:)))
         longPress.minimumPressDuration = 1.0
         mapView.addGestureRecognizer(longPress)
+        
+        fadeInCityLabel(true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,6 +75,10 @@ class MapViewController: UIViewController {
         
         //This is important to make sure you can add pins when returning to the mapView
         setupFetchedResultsController()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
     }
     
 
@@ -82,23 +90,7 @@ class MapViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         fetchedResultsController = nil
-    }
-    
-    fileprivate func centerOnRandomCity() {
-        //Default location Providence, RI
-        var latitude = 41.8240
-        var longitude = -71.4128
         
-        if let cities = cities {
-            let index = Int(arc4random_uniform(UInt32(cities.count)))
-            let city = cities[index]
-            latitude = city.latitude
-            longitude = city.longitude
-        }
-        
-        DispatchQueue.main.async {
-            MapTools.center(map: self.mapView, latitude: latitude, longitude: longitude, radius: 5000)
-        }
     }
     
     @IBAction func pickNewCity(_ sender: Any) {
@@ -123,6 +115,43 @@ class MapViewController: UIViewController {
             break
         }
     }
+    
+    func fadeOutCityLabel(_: Bool) {
+        UIView.animate(withDuration: 4.0, delay: 6.0, options: [], animations: {
+            self.welcomeLabel.alpha = 0.0
+            self.cityLabel.alpha = 0.0
+        }, completion: nil )
+    }
+    
+    func fadeInCityLabel(_: Bool) {
+        UIView.animate(withDuration: 1.0, delay: 1.0, options: [], animations: {
+            self.welcomeLabel.alpha = 1.0
+            self.cityLabel.alpha = 1.0
+        }, completion: fadeOutCityLabel )
+    }
+    
+    fileprivate func centerOnRandomCity() {
+        //Default location Providence, RI
+        var latitude = 41.8240
+        var longitude = -71.4128
+        var cityName = "Providence"
+        
+        if let cities = cities {
+            let index = Int(arc4random_uniform(UInt32(cities.count)))
+            let city = cities[index]
+            latitude = city.latitude
+            longitude = city.longitude
+            cityName = city.city
+        }
+        
+        cityLabel.text = cityName
+        
+        DispatchQueue.main.async {
+            MapTools.center(map: self.mapView, latitude: latitude, longitude: longitude, radius: 5000)
+            self.fadeInCityLabel(true)
+        }
+    }
+
 }
 
 extension MapViewController: NSFetchedResultsControllerDelegate {
