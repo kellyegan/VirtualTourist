@@ -145,9 +145,11 @@ extension PhotosViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCell
         let photo = fetchedResultsController.object(at: indexPath)
         
-        DispatchQueue.main.async {
-            //If cell is selected fade it out slightly.
-            cell.imageView.alpha = cell.isSelected ? 0.4 : 1.0
+        if( editCollection ) {
+            DispatchQueue.main.async {
+                //If cell is selected fade it out slightly.
+                cell.imageView.alpha = cell.isSelected ? 0.4 : 1.0
+            }
         }
 
         if let image = photo.image {
@@ -180,7 +182,6 @@ extension PhotosViewController: UICollectionViewDataSource {
 // MARK: - Collection view delegate
 extension PhotosViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Clicked on \(indexPath)")
         if( editCollection ) {
             if let cell = photosCollectionView.cellForItem(at: indexPath) as? PhotoCell {
                 cell.imageView.alpha = 0.4

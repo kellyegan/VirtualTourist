@@ -96,7 +96,13 @@ class MapViewController: UIViewController {
             longitude = city.longitude
         }
         
-        MapTools.center(map: mapView, latitude: latitude, longitude: longitude, radius: 5000)
+        DispatchQueue.main.async {
+            MapTools.center(map: self.mapView, latitude: latitude, longitude: longitude, radius: 5000)
+        }
+    }
+    
+    @IBAction func pickNewCity(_ sender: Any) {
+        centerOnRandomCity()
     }
     
     @objc func mapLongPress(_ recognizer: UIGestureRecognizer) {
