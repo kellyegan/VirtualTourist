@@ -124,7 +124,7 @@ class MapViewController: UIViewController {
     }
     
     func fadeInCityLabel(_: Bool) {
-        UIView.animate(withDuration: 1.0, delay: 1.0, options: [], animations: {
+        UIView.animate(withDuration: 0.5, delay: 1.0, options: [], animations: {
             self.welcomeLabel.alpha = 1.0
             self.cityLabel.alpha = 1.0
         }, completion: fadeOutCityLabel )
