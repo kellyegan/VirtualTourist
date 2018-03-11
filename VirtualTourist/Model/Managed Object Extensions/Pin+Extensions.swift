@@ -17,7 +17,7 @@ extension Pin: MKAnnotation {
     
     public func findPhotosForPin( context: NSManagedObjectContext ) -> Void {
         let flickrClient = FlickrClient()
-        flickrClient.findPhotosForLocation(latitude: latitude, longitude: longitude, radius: 0.5, numberOfPhotos: 21) {(results, error) -> Void in
+        flickrClient.findPhotosForLocation(latitude: latitude, longitude: longitude, radius: 1.0, numberOfPhotos: 21) {(results, error) -> Void in
             guard error == nil, let results = results else {
                 print("Requests for photos did not work")
                 return

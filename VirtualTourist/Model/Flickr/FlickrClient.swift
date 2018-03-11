@@ -38,14 +38,14 @@ class FlickrClient: NSObject {
      */
     func findPhotosForLocation( latitude: Double, longitude: Double, radius: Double, numberOfPhotos: Int, completionHandler: @escaping (_ results: [[String:AnyObject]]?, _ error: Error?) -> Void ) {
         let yearInSeconds:Double = 60 * 60 * 24 * 365
-        let aYearAgo = Date() - yearInSeconds
+        let minimumDate = Date() - yearInSeconds * 2
         
         let methodParameters = [
             ParameterKeys.Method: ParameterValues.SearchPhotosMethod,
             ParameterKeys.Latitude: latitude,
             ParameterKeys.Longitude: longitude,
             ParameterKeys.SearchRadius: radius,
-            ParameterKeys.MinimumDateTaken: aYearAgo.timeIntervalSince1970,
+            ParameterKeys.MinimumDateTaken: minimumDate.timeIntervalSince1970,
             ParameterKeys.Extras: ParameterValues.MediumURL
             ] as [String : Any]
         
