@@ -222,6 +222,8 @@ extension PhotosViewController: NSFetchedResultsControllerDelegate {
         }
     }
     
+    //The strategy for using the performBatchUpdates feature is based on code from this gist:
+    // https://gist.github.com/Lucien/4440c1cba83318e276bb
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         blockOperations.removeAll(keepingCapacity: false)
     }
