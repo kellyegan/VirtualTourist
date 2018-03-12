@@ -12,7 +12,9 @@ struct MapTools {
     static func center( map: MKMapView, latitude: Double, longitude: Double, radius: CLLocationDistance) {
         let location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location, radius, radius)
-        map.setRegion(coordinateRegion, animated: true)
+        DispatchQueue.main.async {
+            map.setRegion(coordinateRegion, animated: true)
+        }
     }
 }
 

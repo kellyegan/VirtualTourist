@@ -28,7 +28,6 @@ extension Pin: MKAnnotation {
                 photo.title = photoDetails["title"] as? String
                 photo.url = photoDetails["url_m"] as? String
                 photo.pin = self
-                try? context.save()
             }
         }
     }

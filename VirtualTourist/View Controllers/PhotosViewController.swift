@@ -41,10 +41,7 @@ class PhotosViewController: UIViewController {
         defaultButtonColor = cancelButton.tintColor
         setEditing(editCollection)
         
-        
-        if( fetchedResultsController.sections?[0].numberOfObjects == 0 ) {
-            pin.findPhotosForPin(context: dataController.viewContext)
-        }
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -103,8 +100,8 @@ class PhotosViewController: UIViewController {
         if let photos = fetchedResultsController.fetchedObjects {
             for photo in photos {
                 dataController.viewContext.delete(photo)
-                try? dataController.viewContext.save()
             }
+            try? dataController.viewContext.save()
         }
         dataController.viewContext.refreshAllObjects()
         pin.findPhotosForPin(context: dataController.viewContext)

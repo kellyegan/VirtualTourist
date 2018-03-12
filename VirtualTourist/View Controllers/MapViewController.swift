@@ -107,6 +107,8 @@ class MapViewController: UIViewController {
             let activePin = Pin(context: dataController.viewContext)
             activePin.latitude = coordinate.latitude
             activePin.longitude = coordinate.longitude
+            
+            activePin.findPhotosForPin(context: dataController.viewContext)
             try? dataController.viewContext.save()
         case .ended:
             //Long press has ended
